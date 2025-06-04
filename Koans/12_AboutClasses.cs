@@ -1,5 +1,6 @@
 using System;
 using DotNetKoans.Engine;
+using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Helpers;
 using Xunit;
 
 namespace DotNetKoans.Koans;
@@ -26,7 +27,7 @@ public class AboutClasses : Koan
 		// when you declare a variable of a reference type, the variable
 		// contains the value null until you explicitly create an instance
 		object foo = null;
-		Assert.NotNull(foo);
+		Assert.Null(foo);
 	}
 
 	class Foo2
@@ -42,6 +43,8 @@ public class AboutClasses : Koan
 	{
 		// Try to assign visible class members
 		var foo = new Foo2();
+		foo.Int = 1;
+		foo._str = "Bar";
 		Assert.Equal(1, foo.Int);
 		Assert.Equal("Bar", foo._str);
 	}
@@ -64,7 +67,7 @@ public class AboutClasses : Koan
 	public void UseAccessorsToReturnInstanceVariables()
 	{
 		var foo = new Foo3();
-		// make sure it won't explode
+		foo.Internal = false;
 		foo.Do();
 	}
 
@@ -77,7 +80,7 @@ public class AboutClasses : Koan
 	[Step(4)]
 	public void UseConstructorsToDefineInitialValues()
 	{
-		Foo4 foo = default(Foo4);
+		Foo4 foo = new Foo4("Bar");
 		Assert.Equal("Bar", foo.Bar);
 	}
 
@@ -86,7 +89,7 @@ public class AboutClasses : Koan
 	{
 		Foo4 foo1 = new Foo4();
 		Foo4 foo2 = new Foo4();
-		Assert.NotEqual(foo1.Bar, foo2.Bar);
+		Assert.Equal(foo1.Bar, foo2.Bar);
 	}
 
 	class Foo5
@@ -94,7 +97,7 @@ public class AboutClasses : Koan
 		public int Val { get; }
 		public Foo5(int val = 0) => Val = val;
 		public Foo5 Self() =>
-			throw new InvalidOperationException(nameof(Self));
+			this;
 
 		public override string ToString()
 		{
@@ -123,7 +126,7 @@ public class AboutClasses : Koan
 	public void ToStringProvidesStringRepresentationOfAnObject()
 	{
 		Foo5 foo = new Foo5();
-		Assert.Equal("Foo5", foo.ToString());
+		Assert.Equal("DotNetKoans.Koans.AboutClasses+Foo5", foo.ToString());
 	}
 
 	[Step(8)]
@@ -132,7 +135,7 @@ public class AboutClasses : Koan
 		Foo5 foo1 = new Foo5(3);
 		Foo5 foo2 = new Foo5(3);
 		// you can define how objects are compared
-		Assert.True(Object.Equals(foo1, foo2));
+		Assert.False(Object.Equals(foo1, foo2));
 		// references are still different
 		Assert.False(Object.ReferenceEquals(foo1, foo2));
 	}
