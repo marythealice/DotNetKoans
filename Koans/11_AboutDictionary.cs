@@ -15,8 +15,8 @@ public class AboutDictionary : Koan
 		dict.Add("Value", "Key");
 		var firstElement = dict.First();
 
-		Assert.Equal(FILL_ME_IN, firstElement.Key); // Key
-		Assert.Equal(FILL_ME_IN, firstElement.Value); // Value
+		Assert.Equal("Value", firstElement.Key); // Key
+		Assert.Equal("Key", firstElement.Value); // Value
 	}
 
 	//Pass keys to get their values.
@@ -96,7 +96,7 @@ public class AboutDictionary : Koan
 
 		if (dict.ContainsKey(keyToRemove))
 			dict.Remove(keyToRemove);
-            
+
 		Assert.True(dict.ContainsKey(keyToRemove)); // How to make this statement true?          
 	}
 
