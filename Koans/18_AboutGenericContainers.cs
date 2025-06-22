@@ -346,6 +346,6 @@ public class AboutGenericContainers : Koan
 
 		Assert.Equal(54, one["jim"]);
 		Assert.Equal(26, one["jenny"]);
-		Assert.Equal(23, one["amy"]);
+		Assert.Equal(20, one["amy"]);
 	}
 }
