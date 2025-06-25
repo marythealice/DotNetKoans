@@ -9,58 +9,67 @@ public class AboutDirectory : Koan
 {
 	//Directory is a class that provides static methods for creating, moving, and enumerating through directories and subdirectories.
 
-	private static string directoryName = "temp directory";       
+	private static string directoryName = "temp directory";
 	private static string fullPath = IOPath.Combine(IOPath.GetTempPath(), directoryName); // GetTempPath() Returns the path of the current user's temporary folder.
+	private static string directoryName2 = "dir2";
+	private static string directoryName3 = "dir3";
+	private static string directoryName4 = "dir4";
+	private static string directoryName5 = "dir5";
+	private static string fullPath2 = IOPath.Combine(IOPath.GetTempPath(), directoryName2);
+	private static string fullPath3 = IOPath.Combine(IOPath.GetTempPath(), directoryName3);
+	private static string fullPath4 = IOPath.Combine(IOPath.GetTempPath(), directoryName4);
+	private static string fullPath5 = IOPath.Combine(IOPath.GetTempPath(), directoryName5);
+
 
 	[Step(1)]
 	public void CreatingAndDeletingDirectory()
-	{            
-		Directory.CreateDirectory(fullPath);
+	{
+		Directory.CreateDirectory(fullPath2);
 
-		Assert.Equal(FILL_ME_IN, Directory.Exists(fullPath));
+		Assert.Equal(true, Directory.Exists(fullPath2));
 
-		Directory.Delete(fullPath);
+		Directory.Delete(fullPath2);
 
-		Assert.Equal(FILL_ME_IN, Directory.Exists(fullPath));
+		Assert.Equal(false, Directory.Exists(fullPath2));
 	}
-        
+
 	[Step(2)]
 	public void GetDirectoryInfo()
 	{
-		var directoryInfo = new DirectoryInfo(fullPath);
+		var directoryInfo = new DirectoryInfo(fullPath3);
 		directoryInfo.Create();
 
-		Assert.Equal(FILL_ME_IN, directoryInfo.Exists);
-		Assert.Equal(FILL_ME_IN, directoryInfo.Name);
+		Assert.Equal(true, directoryInfo.Exists);
+		Assert.Equal("dir3", directoryInfo.Name);
 
 		directoryInfo.Delete(false);
 	}
-        
+
 	[Step(3)]
 	public void CreateSubDirectory()
 	{
-		var directoryInfo = new DirectoryInfo(fullPath);
+		var directoryInfo = new DirectoryInfo(fullPath4);
 		directoryInfo.Create();
 		directoryInfo.CreateSubdirectory("subdirectory1");
 		directoryInfo.CreateSubdirectory("subdirectory2");
 
-		Assert.Equal(FILL_ME_IN, directoryInfo.GetDirectories().Length); // what is the number of subdirectories?
+		Assert.Equal(2, directoryInfo.GetDirectories().Length); // what is the number of subdirectories?
 
 		directoryInfo.Delete(true);
 	}
-        
+
 	[Step(4)]
 	public void GetFilesInDirectory()
 	{
-		var directoryInfo = new DirectoryInfo(fullPath);
+		var directoryInfo = new DirectoryInfo(fullPath5);
 		directoryInfo.Create();
-            
+
 		using (File.Create(IOPath.Combine(fullPath, "file1")))
 		using (File.Create(IOPath.Combine(fullPath, "file2")))
 		{
 		}
 
-		Assert.Equal(FILL_ME_IN, directoryInfo.GetFiles().Length); // what is the number of files that exist in this directory?
+		Assert.Equal(2, directoryInfo.GetFiles().Length); // what is the number of files that exist in this directory?
 
 		directoryInfo.Delete(true);
 
