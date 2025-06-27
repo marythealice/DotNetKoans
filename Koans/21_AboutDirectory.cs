@@ -64,8 +64,8 @@ public class AboutDirectory : Koan
 		var directoryInfo = new DirectoryInfo(fullPath5);
 		directoryInfo.Create();
 
-		using (File.Create(IOPath.Combine(fullPath, "file1")))
-		using (File.Create(IOPath.Combine(fullPath, "file2")))
+		using (File.Create(IOPath.Combine(fullPath5, "file1")))
+		using (File.Create(IOPath.Combine(fullPath5, "file2")))
 		{
 		}
 
